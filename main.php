@@ -76,17 +76,28 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>phpMyAdmin</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 40px; background: #f5f5f5; }
-        .container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .success { color: #28a745; background: #d4edda; padding: 15px; border-radius: 4px; margin: 20px 0; }
-        .info { color: #0c5460; background: #d1ecf1; padding: 15px; border-radius: 4px; margin: 20px 0; }
-        h1 { color: #333; }
-        .config-info { background: #f8f9fa; padding: 15px; border-left: 4px solid #007bff; margin: 20px 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background: #f8f9fa; }
+        .header { background: #2c3e50; color: white; padding: 15px 30px; }
+        .header h1 { margin: 0; font-size: 24px; }
+        .container { max-width: 1200px; margin: 20px auto; background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); overflow: hidden; }
+        .success { color: #155724; background: #d4edda; padding: 15px; border-left: 4px solid #28a745; margin: 20px; }
+        .info { color: #0c5460; background: #d1ecf1; padding: 15px; border-left: 4px solid #17a2b8; margin: 20px; }
+        .content { padding: 20px; }
+        .db-section { background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 6px; margin: 15px 0; }
+        .db-header { background: #e9ecef; padding: 12px 15px; border-bottom: 1px solid #dee2e6; font-weight: bold; }
+        .db-content { padding: 15px; }
+        .table-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+        .table-item { background: white; border: 1px solid #dee2e6; padding: 10px; border-radius: 4px; display: flex; align-items: center; }
+        .table-item:hover { background: #f8f9fa; }
+        ul { list-style: none; padding: 0; margin: 0; }
     </style>
 </head>
 <body>
+    <div class="header">
+        <h1>🐬 phpMyAdmin</h1>
+    </div>
     <div class="container">
-        <h1>🎉 phpMyAdmin - Configuración Exitosa</h1>
+        <div class="content">
         
         <?php if ($connection_success): ?>
         <div class="success">
@@ -111,18 +122,24 @@ try {
         </div>
         <?php endif; ?>
         
-        <div class="config-info">
-            <h3>📋 Tablas en la base de datos 'railway':</h3>
-            <?php if (!empty($tables)): ?>
-                <ul>
-                    <?php foreach ($tables as $table): ?>
-                        <li>🗂️ <?php echo htmlspecialchars($table); ?></li>
-                    <?php endforeach; ?>
-                </ul>
-            <?php else: ?>
-                <p>📝 No hay tablas en la base de datos 'railway' o aún no se han creado.</p>
-                <p><strong>Tip:</strong> Crea tablas desde Railway o conecta tu aplicación para empezar a usarlas.</p>
-            <?php endif; ?>
+        <div class="db-section">
+            <div class="db-header">
+                📋 Base de datos: railway
+            </div>
+            <div class="db-content">
+                <?php if (!empty($tables)): ?>
+                    <div class="table-list">
+                        <?php foreach ($tables as $table): ?>
+                            <div class="table-item">
+                                🗂️ <?php echo htmlspecialchars($table); ?>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                <?php else: ?>
+                    <p>📝 No hay tablas en la base de datos 'railway'.</p>
+                    <p><strong>Tip:</strong> Crea tablas desde Railway para verlas aquí.</p>
+                <?php endif; ?>
+            </div>
         </div>
         <?php else: ?>
         <div style="color: #721c24; background: #f8d7da; padding: 15px; border-radius: 4px; margin: 20px 0;">
@@ -155,6 +172,7 @@ try {
         
         <p><strong>Nota:</strong> Esta es una versión simplificada de phpMyAdmin. Para funcionalidad completa, 
         considera descargar la versión oficial desde <a href="https://www.phpmyadmin.net/" target="_blank">phpmyadmin.net</a></p>
+        </div>
     </div>
 </body>
 </html>
