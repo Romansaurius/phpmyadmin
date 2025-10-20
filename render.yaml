@@ -10,7 +10,5 @@ services:
         value: shuttle.proxy.rlwy.net
       - key: PMA_PORT
         value: 21840
-      - key: PMA_USER
-        value: root
-      - key: PMA_PASSWORD
-        value: anJkMDnhTJoXaMDjgYFpfmkMBUskRZFu
+      - key: PMA_ARBITRARY
+        value: 1
