@@ -27,10 +27,10 @@ $i++;
 /* Authentication type */
 $cfg['Servers'][$i]['auth_type'] = 'cookie';
 /* Server parameters */
-$cfg['Servers'][$i]['host'] = $_ENV['DB_HOST'] ?? 'saurius.orender.com';
-$cfg['Servers'][$i]['port'] = (int)($_ENV['DB_PORT'] ?? 3306);
-$cfg['Servers'][$i]['user'] = $_ENV['DB_USER'] ?? 'Romansaurius';
-$cfg['Servers'][$i]['password'] = $_ENV['DB_PASSWORD'] ?? 'Romansaurius2024';
+$cfg['Servers'][$i]['host'] = $_ENV['DB_HOST'] ?? 'shuttle.proxy.rlwy.net';
+$cfg['Servers'][$i]['port'] = (int)($_ENV['DB_PORT'] ?? 21840);
+$cfg['Servers'][$i]['user'] = $_ENV['DB_USER'] ?? 'root';
+$cfg['Servers'][$i]['password'] = $_ENV['DB_PASSWORD'] ?? 'anJkMDnhTJoXaMDjgYFpfmkMBUskRZFu';
 $cfg['Servers'][$i]['compress'] = false;
 $cfg['Servers'][$i]['AllowNoPassword'] = false;
 $cfg['Servers'][$i]['connect_type'] = 'tcp';
