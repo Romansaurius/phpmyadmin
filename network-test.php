@@ -7,6 +7,15 @@ include 'config.inc.php';
 $host = $cfg['Servers'][1]['host'];
 $port = $cfg['Servers'][1]['port'] ?? 3306;
 
+echo "<p><strong>Variables de entorno:</strong></p>";
+echo "<ul>";
+echo "<li>DB_HOST: " . ($_ENV['DB_HOST'] ?? 'No definida') . "</li>";
+echo "<li>DB_PORT: " . ($_ENV['DB_PORT'] ?? 'No definida') . "</li>";
+echo "<li>DB_USER: " . ($_ENV['DB_USER'] ?? 'No definida') . "</li>";
+echo "<li>DB_PASSWORD: " . (isset($_ENV['DB_PASSWORD']) ? '***definida***' : 'No definida') . "</li>";
+echo "</ul>";
+echo "<hr>";
+
 echo "<h3>Información de conexión:</h3>";
 echo "<p><strong>Host:</strong> $host</p>";
 echo "<p><strong>Puerto:</strong> $port</p>";
