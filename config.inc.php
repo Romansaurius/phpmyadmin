@@ -28,7 +28,7 @@ $i++;
 $cfg['Servers'][$i]['auth_type'] = 'cookie';
 /* Server parameters */
 $cfg['Servers'][$i]['host'] = $_ENV['DB_HOST'] ?? 'saurius.orender.com';
-$cfg['Servers'][$i]['port'] = $_ENV['DB_PORT'] ?? 3306;
+$cfg['Servers'][$i]['port'] = (int)($_ENV['DB_PORT'] ?? 3306);
 $cfg['Servers'][$i]['user'] = $_ENV['DB_USER'] ?? 'Romansaurius';
 $cfg['Servers'][$i]['password'] = $_ENV['DB_PASSWORD'] ?? 'Romansaurius2024';
 $cfg['Servers'][$i]['compress'] = false;

@@ -34,7 +34,7 @@ try {
         $cfg['Servers'][1]['user'],
         $cfg['Servers'][1]['password'],
         '',
-        $cfg['Servers'][1]['port'] ?? 3306
+        (int)($cfg['Servers'][1]['port'] ?? 3306)
     );
     
     if ($connection) {
