@@ -49,11 +49,11 @@ try {
             }
         }
         
-        // Obtener tablas de la primera base de datos disponible
+        // Obtener tablas de la base de datos 'railway'
         $tables = [];
-        if (!empty($databases)) {
-            $db_name = $databases[0];
-            mysqli_select_db($connection, $db_name);
+        $current_db = 'railway';
+        if (in_array('railway', $databases)) {
+            mysqli_select_db($connection, 'railway');
             $result = mysqli_query($connection, "SHOW TABLES");
             if ($result) {
                 while ($row = mysqli_fetch_array($result)) {
@@ -111,16 +111,19 @@ try {
         </div>
         <?php endif; ?>
         
-        <?php if (!empty($tables)): ?>
         <div class="config-info">
-            <h3>📋 Tablas en la base de datos:</h3>
-            <ul>
-                <?php foreach ($tables as $table): ?>
-                    <li>🗂️ <?php echo htmlspecialchars($table); ?></li>
-                <?php endforeach; ?>
-            </ul>
+            <h3>📋 Tablas en la base de datos 'railway':</h3>
+            <?php if (!empty($tables)): ?>
+                <ul>
+                    <?php foreach ($tables as $table): ?>
+                        <li>🗂️ <?php echo htmlspecialchars($table); ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php else: ?>
+                <p>📝 No hay tablas en la base de datos 'railway' o aún no se han creado.</p>
+                <p><strong>Tip:</strong> Crea tablas desde Railway o conecta tu aplicación para empezar a usarlas.</p>
+            <?php endif; ?>
         </div>
-        <?php endif; ?>
         <?php else: ?>
         <div style="color: #721c24; background: #f8d7da; padding: 15px; border-radius: 4px; margin: 20px 0;">
             <strong>❌ Error de conexión a la base de datos</strong><br>
