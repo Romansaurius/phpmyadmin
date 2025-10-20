@@ -1,18 +1,6 @@
-FROM php:8.2-apache
+FROM phpmyadmin/phpmyadmin:latest
 
-# Instalar extensiones necesarias
-RUN docker-php-ext-install mysqli
+# Variables de entorno se configuran automáticamente
+# No necesitas copiar nada más
 
-# Copiar todos los archivos
-COPY . /var/www/html/
-
-# Crear directorios si no existen
-RUN mkdir -p /var/www/html/libraries
-RUN mkdir -p /var/www/html/vendor
-
-# Establecer permisos
-RUN chown -R www-data:www-data /var/www/html
-RUN chmod -R 755 /var/www/html
-
-# Exponer el puerto de Apache
 EXPOSE 80
