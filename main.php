@@ -39,6 +39,29 @@ try {
     
     if ($connection) {
         $connection_success = true;
+        
+        // Obtener lista de bases de datos
+        $databases = [];
+        $result = mysqli_query($connection, "SHOW DATABASES");
+        if ($result) {
+            while ($row = mysqli_fetch_array($result)) {
+                $databases[] = $row[0];
+            }
+        }
+        
+        // Obtener tablas de la primera base de datos disponible
+        $tables = [];
+        if (!empty($databases)) {
+            $db_name = $databases[0];
+            mysqli_select_db($connection, $db_name);
+            $result = mysqli_query($connection, "SHOW TABLES");
+            if ($result) {
+                while ($row = mysqli_fetch_array($result)) {
+                    $tables[] = $row[0];
+                }
+            }
+        }
+        
         mysqli_close($connection);
     }
 } catch (Exception $e) {
@@ -76,6 +99,28 @@ try {
             <strong>Puerto:</strong> <?php echo $cfg['Servers'][1]['port'] ?? 3306; ?><br>
             <strong>Usuario:</strong> <?php echo htmlspecialchars($cfg['Servers'][1]['user']); ?>
         </div>
+        
+        <?php if (!empty($databases)): ?>
+        <div class="config-info">
+            <h3>📊 Bases de datos disponibles:</h3>
+            <ul>
+                <?php foreach ($databases as $db): ?>
+                    <li><strong><?php echo htmlspecialchars($db); ?></strong></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+        <?php endif; ?>
+        
+        <?php if (!empty($tables)): ?>
+        <div class="config-info">
+            <h3>📋 Tablas en la base de datos:</h3>
+            <ul>
+                <?php foreach ($tables as $table): ?>
+                    <li>🗂️ <?php echo htmlspecialchars($table); ?></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+        <?php endif; ?>
         <?php else: ?>
         <div style="color: #721c24; background: #f8d7da; padding: 15px; border-radius: 4px; margin: 20px 0;">
             <strong>❌ Error de conexión a la base de datos</strong><br>
