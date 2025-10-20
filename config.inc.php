@@ -28,10 +28,14 @@ $i++;
 $cfg['Servers'][$i]['auth_type'] = 'cookie';
 /* Server parameters */
 $cfg['Servers'][$i]['host'] = 'saurius.orender.com';
+$cfg['Servers'][$i]['port'] = 3306;
 $cfg['Servers'][$i]['user'] = 'Romansaurius';
 $cfg['Servers'][$i]['password'] = 'Romansaurius2024';
 $cfg['Servers'][$i]['compress'] = false;
 $cfg['Servers'][$i]['AllowNoPassword'] = false;
+$cfg['Servers'][$i]['connect_type'] = 'tcp';
+$cfg['Servers'][$i]['socket'] = '';
+$cfg['Servers'][$i]['ssl'] = false;
 
 /**
  * phpMyAdmin configuration storage settings.

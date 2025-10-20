@@ -20,20 +20,30 @@ if (empty($cfg['Servers'][1]['host'])) {
     die('Error: No se ha configurado el servidor de base de datos.');
 }
 
-// Intentar conectar a la base de datos
-$connection = @mysqli_connect(
-    $cfg['Servers'][1]['host'],
-    $cfg['Servers'][1]['user'],
-    $cfg['Servers'][1]['password']
-);
+// Configurar timeout de conexión
+ini_set('default_socket_timeout', 10);
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-if (!$connection) {
-    $error = mysqli_connect_error();
-    die("Error de conexión: " . $error);
+$connection_success = false;
+$error_message = '';
+
+try {
+    // Intentar conectar a la base de datos con puerto
+    $connection = mysqli_connect(
+        $cfg['Servers'][1]['host'],
+        $cfg['Servers'][1]['user'],
+        $cfg['Servers'][1]['password'],
+        '',
+        $cfg['Servers'][1]['port'] ?? 3306
+    );
+    
+    if ($connection) {
+        $connection_success = true;
+        mysqli_close($connection);
+    }
+} catch (Exception $e) {
+    $error_message = $e->getMessage();
 }
-
-// Si llegamos aquí, la conexión es exitosa
-mysqli_close($connection);
 
 ?>
 <!DOCTYPE html>
@@ -55,6 +65,7 @@ mysqli_close($connection);
     <div class="container">
         <h1>🎉 phpMyAdmin - Configuración Exitosa</h1>
         
+        <?php if ($connection_success): ?>
         <div class="success">
             <strong>¡Excelente!</strong> Tu instalación de phpMyAdmin está funcionando correctamente.
         </div>
@@ -62,8 +73,27 @@ mysqli_close($connection);
         <div class="info">
             <strong>Conexión a la base de datos:</strong> ✅ Exitosa<br>
             <strong>Servidor:</strong> <?php echo htmlspecialchars($cfg['Servers'][1]['host']); ?><br>
+            <strong>Puerto:</strong> <?php echo $cfg['Servers'][1]['port'] ?? 3306; ?><br>
             <strong>Usuario:</strong> <?php echo htmlspecialchars($cfg['Servers'][1]['user']); ?>
         </div>
+        <?php else: ?>
+        <div style="color: #721c24; background: #f8d7da; padding: 15px; border-radius: 4px; margin: 20px 0;">
+            <strong>❌ Error de conexión a la base de datos</strong><br>
+            <strong>Servidor:</strong> <?php echo htmlspecialchars($cfg['Servers'][1]['host']); ?><br>
+            <strong>Puerto:</strong> <?php echo $cfg['Servers'][1]['port'] ?? 3306; ?><br>
+            <strong>Error:</strong> <?php echo htmlspecialchars($error_message); ?>
+        </div>
+        
+        <div class="config-info">
+            <h3>Posibles soluciones:</h3>
+            <ul>
+                <li>Verifica que el servidor de base de datos esté funcionando</li>
+                <li>Confirma que el host y puerto sean correctos</li>
+                <li>Verifica las credenciales de usuario y contraseña</li>
+                <li>Asegúrate de que el firewall permita conexiones al puerto 3306</li>
+            </ul>
+        </div>
+        <?php endif; ?>
         
         <div class="config-info">
             <h3>Para desplegar en Render:</h3>
