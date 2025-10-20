@@ -7,9 +7,7 @@ if (! defined('ROOT_PATH')) {
 }
 
 define('PHPMYADMIN', true);
-
-require_once ROOT_PATH . 'libraries/constants.php';
-require AUTOLOAD_FILE;
+define('CONFIG_FILE', ROOT_PATH . 'config.inc.php');
 
 // Cargar configuración
 global $cfg;
