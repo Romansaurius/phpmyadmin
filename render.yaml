@@ -7,8 +7,10 @@ services:
     autoDeploy: true
     envVars:
       - key: PMA_HOST
-        value: mysql.railway.internal
+        value: shuttle.proxy.rlwy.net
       - key: PMA_PORT
         value: 21840
-      - key: PMA_ARBITRARY
-        value: 1
+      - key: PMA_USER
+        value: root
+      - key: PMA_PASSWORD
+        value: anJkMDnhTJoXaMDjgYFpfmkMBUskRZFu
